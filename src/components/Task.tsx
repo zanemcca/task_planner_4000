@@ -10,11 +10,12 @@ import moment from 'moment';
 
 import '../styles/Task.css';
 import { IconProps } from 'antd/lib/icon';
+import Channel, { IChannel } from './Channel';
 
 export interface ITask {
   description: string
   time?: moment.Duration
-  channel?: string
+  channel?: IChannel
   complete?: boolean
 }
 
@@ -44,7 +45,7 @@ const Task = (props: ITaskProps) => {
         <Col span={3} className="Task-complete">
           <Icon {...taskCompleteIconProps} />
         </Col>
-        <Col span={21} className="Task-channel">{props.channel && `#${props.channel}`}</Col>
+        <Col span={21} className="Task-channel">{props.channel && <Channel {...props.channel}/>}</Col>
       </Row>
     </Card>
   )

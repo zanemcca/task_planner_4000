@@ -17,13 +17,24 @@ const Asana = () => {
   )
 }
 
+const channels = {
+  default: {
+    title: 'default',
+    color: 'red'
+  },
+  personal: {
+    title: 'personal',
+    color: 'blue'
+  }
+}
+
 const App = () => {
   const today = moment()
   const schedules: IDailySchedule[] = [{
     date: today,
     tasks: [{
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a sapien orci. Integer efficitur nunc sem, tristique lacinia lorem egestas at. Sed iaculis purus non nisl aliquet, tempor efficitur risus ornare. Aenean sapien lectus, varius quis lacus eget, facilisis ultricies leo.',
-      channel: 'default',
+      channel: channels.default,
       time: moment.duration('01:00:00'),
     }, {
       description: 'Nam malesuada massa odio.',
@@ -33,10 +44,11 @@ const App = () => {
     date: moment(today).add(1, 'd'),
     tasks: [{
       description: 'Aliquam vel massa accumsan, accumsan ex eu, posuere nunc.',
+      channel: channels.default,
       time: moment.duration('00:30:00'),
     }, {
       description: 'Nam malesuada massa odio.',
-      channel: 'default',
+      channel: channels.personal,
     }]
   }, {
     date: moment(today).add(2, 'd'),
@@ -46,7 +58,7 @@ const App = () => {
       time: moment.duration('00:15:00'),
     }, {
       description: 'Nullam magna leo, porttitor non semper quis, tempor quis leo.',
-      channel: 'default',
+      channel: channels.personal,
       time: moment.duration('00:30:00'),
     }]
   }]
