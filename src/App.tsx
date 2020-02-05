@@ -28,7 +28,6 @@ const App = () => {
     }, {
       description: 'Nam malesuada massa odio.',
       complete: true,
-      time: moment.duration('01:30:00'),
     }]
   }, {
     date: moment(today).add(1, 'd'),
@@ -38,7 +37,6 @@ const App = () => {
     }, {
       description: 'Nam malesuada massa odio.',
       channel: 'default',
-      time: moment.duration('00:90:00'),
     }]
   }, {
     date: moment(today).add(2, 'd'),

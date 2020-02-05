@@ -13,7 +13,7 @@ import { IconProps } from 'antd/lib/icon';
 
 export interface ITask {
   description: string
-  time: moment.Duration
+  time?: moment.Duration
   channel?: string
   complete?: boolean
 }
@@ -38,7 +38,7 @@ const Task = (props: ITaskProps) => {
     <Card className="Task">
       <Row className="Task-header">
         <div className="Task-description">{props.description}</div>
-        <div className="Task-time">{props.time.humanize()}</div>
+        {props.time && <div className="Task-time">{props.time.humanize()}</div>}
       </Row>
       <Row className="Task-footer">
         <Col span={3} className="Task-complete">

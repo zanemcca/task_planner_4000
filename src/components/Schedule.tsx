@@ -16,7 +16,7 @@ const Schedule = (props: IScheduleProps) => {
   return (
     <div className="Schedule">
       {map(props.dailySchedules, schedule => (
-        <Col span={8}>
+        <Col key={schedule.date.toLocaleString()} span={8}>
           <DailySchedule date={schedule.date} tasks={schedule.tasks}/>
         </Col>
       ))}
