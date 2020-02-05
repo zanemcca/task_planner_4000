@@ -1,4 +1,7 @@
 .Task {
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  margin-bottom: 12px;
 }
 
 .Task-header {

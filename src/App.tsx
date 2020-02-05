@@ -51,8 +51,6 @@ const App = () => {
     }]
   }]
 
-  console.log(map(schedules, s => s.date.format('MM DD YYYY')))
-
   return (
     <div className="App">
       <Layout className="App-layout">
