@@ -31,6 +31,7 @@
   padding-right: 5px;
 
   flex: 0 0 auto;
+  max-height: 20px;
 
   color: #787878;
 }
@@ -42,5 +43,6 @@
 
 .Task-complete {
   font-size: 20px;
+  color: #B4B4B4;
   text-align: left;
 }

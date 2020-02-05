@@ -18,10 +18,11 @@ export interface IDailySchedule {
 export type IDailyScheduleProps = IDailySchedule
 
 const DailySchedule = (props: IDailyScheduleProps) => {
+
   return (
     <Card className="DailySchedule">
       <Row className="DailySchedule-day">{props.date.format('dddd')}</Row>
-      <Row className="DailySchedule-date">{props.date.format('MMMM d')}</Row>
+      <Row className="DailySchedule-date">{props.date.format('MMMM D')}</Row>
       {map(props.tasks, task => (
         <Row key={task.description}>
           <Task {...task}/>

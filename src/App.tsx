@@ -4,6 +4,10 @@ import './App.css';
 
 import Schedule from './components/Schedule';
 import { Layout } from 'antd';
+import { ITask } from './components/Task';
+import moment from 'moment';
+import { IDailySchedule } from './components/DailySchedule';
+import { map } from 'lodash';
 
 const { Sider, Content } = Layout
 
@@ -14,11 +18,48 @@ const Asana = () => {
 }
 
 const App = () => {
+  const today = moment()
+  const schedules: IDailySchedule[] = [{
+    date: today,
+    tasks: [{
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a sapien orci. Integer efficitur nunc sem, tristique lacinia lorem egestas at. Sed iaculis purus non nisl aliquet, tempor efficitur risus ornare. Aenean sapien lectus, varius quis lacus eget, facilisis ultricies leo.',
+      channel: 'default',
+      time: moment.duration('01:00:00'),
+    }, {
+      description: 'Nam malesuada massa odio.',
+      complete: true,
+      time: moment.duration('01:30:00'),
+    }]
+  }, {
+    date: moment(today).add(1, 'd'),
+    tasks: [{
+      description: 'Aliquam vel massa accumsan, accumsan ex eu, posuere nunc.',
+      time: moment.duration('00:30:00'),
+    }, {
+      description: 'Nam malesuada massa odio.',
+      channel: 'default',
+      time: moment.duration('00:90:00'),
+    }]
+  }, {
+    date: moment(today).add(2, 'd'),
+    tasks: [{
+      description: 'Vestibulum consequat dictum arcu sit amet pellentesque.',
+      complete: true,
+      time: moment.duration('00:15:00'),
+    }, {
+      description: 'Nullam magna leo, porttitor non semper quis, tempor quis leo.',
+      channel: 'default',
+      time: moment.duration('00:30:00'),
+    }]
+  }]
+
+  console.log(map(schedules, s => s.date.format('MM DD YYYY')))
+
   return (
     <div className="App">
       <Layout className="App-layout">
         <Content className="App-content">
-          <Schedule/>
+          <Schedule dailySchedules={schedules}/>
         </Content>
         <Sider className="App-sider">
           <Asana/>
