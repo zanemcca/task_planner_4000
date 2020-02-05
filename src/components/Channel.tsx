@@ -1,14 +1,5 @@
 
 import React from 'react';
-import {
-  Col,
-  Row,
-  Card,
-  Icon
-} from 'antd'
-import moment from 'moment';
-
-import { IconProps } from 'antd/lib/icon';
 
 export interface IChannel {
   color: string

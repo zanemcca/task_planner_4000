@@ -4,10 +4,8 @@ import './App.css';
 
 import Schedule from './components/Schedule';
 import { Layout } from 'antd';
-import { ITask } from './components/Task';
 import moment from 'moment';
 import { IDailySchedule } from './components/DailySchedule';
-import { map } from 'lodash';
 
 const { Sider, Content } = Layout
 
