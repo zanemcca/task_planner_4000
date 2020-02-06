@@ -18,7 +18,6 @@ export interface IDailySchedule {
 export type IDailyScheduleProps = IDailySchedule
 
 const DailySchedule = (props: IDailyScheduleProps) => {
-
   return (
     <Card className="DailySchedule">
       <Row className="DailySchedule-day">{props.date.format('dddd')}</Row>

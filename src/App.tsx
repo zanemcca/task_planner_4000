@@ -6,14 +6,9 @@ import Schedule from './components/Schedule';
 import { Layout } from 'antd';
 import moment from 'moment';
 import { IDailySchedule } from './components/DailySchedule';
+import Asana from './components/Asana';
 
 const { Sider, Content } = Layout
-
-const Asana = () => {
-  return (
-    <div>Asana</div>
-  )
-}
 
 const channels = {
   default: {
@@ -67,8 +62,8 @@ const App = () => {
         <Content className="App-content">
           <Schedule dailySchedules={schedules}/>
         </Content>
-        <Sider className="App-sider">
-          <Asana/>
+        <Sider theme="light" className="App-sider">
+          <Asana />
         </Sider>
       </Layout>
     </div>
