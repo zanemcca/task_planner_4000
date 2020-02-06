@@ -3,8 +3,9 @@ import React from 'react';
 import './App.css';
 
 import Schedule from './components/Schedule';
-import { Layout } from 'antd';
+import { Layout, Button } from 'antd';
 import moment from 'moment';
+import CommandPalette from 'react-command-palette';
 import { IDailySchedule } from './components/DailySchedule';
 import Asana from './components/Asana';
 
@@ -60,8 +61,39 @@ const App = () => {
     project: 'Backlog'
   }
 
+  const commands = [{
+    name: 'Create Asana Task',
+    command: () => console.log('Create Asana Task')
+  }, {
+    name: 'Create Task',
+    command: () => console.log('Create Task')
+  }]
+
+  const theme = {
+    container: 'atom-container',
+    containerOpen: 'atom-containerOpen',
+    content: 'atom-content',
+    header: 'atom-header',
+    input: 'custom-input',
+    inputFocused: 'custom-inputFocused',
+    inputOpen: 'atom-inputOpen',
+    modal: 'custom-modal',
+    overlay: 'atom-overlay',
+    spinner: 'atom-spinner',
+    suggestion: 'custom-suggestion',
+    suggestionFirst: 'atom-suggestionFirst',
+    suggestionHighlighted: 'custom-suggestionHighlighted',
+    suggestionsContainer: 'custom-suggestionsContainer',
+    suggestionsContainerOpen: 'custom-suggestionsContainerOpen',
+    suggestionsList: 'atom-suggestionsList',
+    trigger: 'atom-trigger'
+  }
+
   return (
     <div className="App">
+      <div style={{ position: 'absolute', bottom: '25px', left: '25px' }}>
+        <CommandPalette theme={theme} trigger={<Button className="App-command-palette-button">Command Palette</Button>} commands={commands} />
+      </div>
       <Layout className="App-layout">
         <Content className="App-content">
           <Schedule dailySchedules={schedules}/>
