@@ -1,0 +1,51 @@
+.Task {
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.Task-header {
+  display: flex
+}
+
+.Task-footer {
+}
+
+.Task-description {
+  text-align: left;
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+  flex: 1 1 100%;
+}
+
+.Task-time {
+  background: #F0F0F0;
+  border-radius: 4px;
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 8px;
+  line-height: 19px;
+
+  padding-left: 5px;
+  padding-right: 5px;
+
+  flex: 0 0 auto;
+  max-height: 20px;
+
+  color: #787878;
+}
+
+.Task-channel {
+  text-align: right;
+  margin-top: 9px;
+}
+
+.Task-complete {
+  font-size: 20px;
+  color: #B4B4B4;
+  text-align: left;
+}

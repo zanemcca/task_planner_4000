@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render in a nice way 1`] = `
+<div
+  className="ant-card Task ant-card-bordered"
+>
+  <div
+    className="ant-card-body"
+    style={Object {}}
+  >
+    <div
+      className="ant-row Task-header"
+      style={Object {}}
+    >
+      <div
+        className="Task-description"
+      >
+        Aliquam vel massa accumsan, accumsan ex eu, posuere nunc.
+      </div>
+    </div>
+  </div>
+</div>
+`;
