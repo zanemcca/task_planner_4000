@@ -56,14 +56,18 @@ const App = () => {
     }]
   }]
 
+  const asana = {
+    project: 'Backlog'
+  }
+
   return (
     <div className="App">
       <Layout className="App-layout">
         <Content className="App-content">
           <Schedule dailySchedules={schedules}/>
         </Content>
-        <Sider theme="light" className="App-sider">
-          <Asana />
+        <Sider theme="light" width='25%' className="App-sider">
+          <Asana project={asana.project}/>
         </Sider>
       </Layout>
     </div>

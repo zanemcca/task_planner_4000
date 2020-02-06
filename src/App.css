@@ -14,5 +14,7 @@
 }
 
 .App-sidebar {
+  min-width: 357px;
+  max-width: 357px;
   height: 100%;
 }

@@ -4,6 +4,7 @@ import { map } from 'lodash';
 import Task, { ITask } from './Task';
 import '../styles/Asana.css';
 import logo from '../asana_logo.png';
+import AsanaTask from './AsanaTask';
 
 export interface IAsanaProps {
   project?: string
@@ -11,7 +12,12 @@ export interface IAsanaProps {
 
 const Asana = (props: IAsanaProps) => {
   // TODO Fetch tasks
-  const tasks: ITask[] = []
+  const tasks: ITask[] = [{
+    description: 'Aliquam vel massa accumsan, accumsan ex eu, posuere nunc.',
+  }, {
+    description: 'Nam malesuada massa odio.',
+  }]
+
   return (
     <Card className="Asana">
       <Row className="Asana-title">Asana</Row>
@@ -23,7 +29,7 @@ const Asana = (props: IAsanaProps) => {
       </Row>}
       {map(tasks, task => (
         <Row key={task.description}>
-          <Task {...task}/>
+          <AsanaTask {...task}/>
         </Row>
       ))}
     </Card>

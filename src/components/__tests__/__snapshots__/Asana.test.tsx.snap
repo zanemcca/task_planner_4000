@@ -1,0 +1,159 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should find and render tasks when project is given 1`] = `
+<div
+  className="ant-card Asana ant-card-bordered"
+>
+  <div
+    className="ant-card-body"
+    style={Object {}}
+  >
+    <div
+      className="ant-row Asana-title"
+      style={Object {}}
+    >
+      Asana
+    </div>
+    <div
+      className="ant-row Asana-project"
+      style={Object {}}
+    >
+      test project
+    </div>
+    <div
+      className="ant-row"
+      style={Object {}}
+    >
+      <div
+        className="ant-card Task ant-card-bordered"
+      >
+        <div
+          className="ant-card-body"
+          style={Object {}}
+        >
+          <div
+            className="ant-row Task-header"
+            style={Object {}}
+          >
+            <div
+              className="Task-description"
+            >
+              Aliquam vel massa accumsan, accumsan ex eu, posuere nunc.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="ant-row"
+      style={Object {}}
+    >
+      <div
+        className="ant-card Task ant-card-bordered"
+      >
+        <div
+          className="ant-card-body"
+          style={Object {}}
+        >
+          <div
+            className="ant-row Task-header"
+            style={Object {}}
+          >
+            <div
+              className="Task-description"
+            >
+              Nam malesuada massa odio.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render a connect to asana button if there is no project given 1`] = `
+<div
+  className="ant-card Asana ant-card-bordered"
+>
+  <div
+    className="ant-card-body"
+    style={Object {}}
+  >
+    <div
+      className="ant-row Asana-title"
+      style={Object {}}
+    >
+      Asana
+    </div>
+    <div
+      className="ant-row Asana-connect"
+      style={Object {}}
+    >
+      <button
+        className="ant-btn Asana-connect-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <img
+          alt=""
+          className="Asana-logo"
+          height="32px"
+          src="asana_logo.png"
+        />
+        <span>
+           Connect Asana
+        </span>
+      </button>
+    </div>
+    <div
+      className="ant-row"
+      style={Object {}}
+    >
+      <div
+        className="ant-card Task ant-card-bordered"
+      >
+        <div
+          className="ant-card-body"
+          style={Object {}}
+        >
+          <div
+            className="ant-row Task-header"
+            style={Object {}}
+          >
+            <div
+              className="Task-description"
+            >
+              Aliquam vel massa accumsan, accumsan ex eu, posuere nunc.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="ant-row"
+      style={Object {}}
+    >
+      <div
+        className="ant-card Task ant-card-bordered"
+      >
+        <div
+          className="ant-card-body"
+          style={Object {}}
+        >
+          <div
+            className="ant-row Task-header"
+            style={Object {}}
+          >
+            <div
+              className="Task-description"
+            >
+              Nam malesuada massa odio.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
