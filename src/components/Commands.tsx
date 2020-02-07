@@ -2,6 +2,8 @@
 import React from 'react';
 import CommandPalette from 'react-command-palette';
 import { Button } from 'antd';
+
+import asanaLogo from '../asana_logo.png';
 import '../styles/Commands.css';
 
 const theme = {
@@ -29,8 +31,19 @@ const commands = [{
   command: () => console.log('Create Task')
 }, {
   name: 'Create Asana Task',
+  icon: asanaLogo,
   command: () => console.log('Create Asana Task')
 }]
+
+const Command = (props: any) => {
+  const { color, name, icon } = props;
+  return (
+    <div style={{ color }}>
+      {icon && <img src={icon} className="Command-icon" height='32px' alt=''/>}
+      <span>{name}</span>
+    </div>
+  );
+}
 
 const Commands = () => {
   return (
@@ -38,6 +51,9 @@ const Commands = () => {
       <CommandPalette
         theme={theme}
         hotKeys='command+k'
+        closeOnSelect={true}
+        resetInputOnClose={true}
+        renderCommand={Command}
         trigger={<Button>
           ⌘+k (Command Palette)
         </Button>}

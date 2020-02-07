@@ -73,3 +73,7 @@
 .custom-suggestionsContainerOpen {
   margin-top: 10px;
 }
+
+.Command-icon {
+  padding: 5px 7px 5px 0;
+}
