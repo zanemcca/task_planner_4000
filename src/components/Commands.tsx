@@ -1,7 +1,7 @@
 
 import React from 'react';
 import CommandPalette from 'react-command-palette';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 
 import asanaLogo from '../asana_logo.png';
 import '../styles/Commands.css';
@@ -28,11 +28,11 @@ const theme = {
 
 const commands = [{
   name: 'Create Task',
-  command: () => console.log('Create Task')
+  command: () => message.success('Creating a task is coming soon')
 }, {
   name: 'Create Asana Task',
   icon: asanaLogo,
-  command: () => console.log('Create Asana Task')
+  command: () => message.success('Creating an Asana task Coming Soon')
 }]
 
 const Command = (props: any) => {
