@@ -6,6 +6,7 @@ import { Button, message } from 'antd';
 import asanaLogo from '../asana_logo.png';
 import sunsamaLogo from '../sunsama_logo.png';
 import '../styles/Commands.css';
+import AsanaTaskCreateForm from './forms/AsanaTaskCreate';
 
 const theme = {
   container: 'atom-container',
@@ -27,15 +28,6 @@ const theme = {
   trigger: 'atom-trigger'
 }
 
-const commands = [{
-  name: 'Create Task',
-  icon: sunsamaLogo,
-  command: () => message.success('Creating a task is coming soon')
-}, {
-  name: 'Create Asana Task',
-  icon: asanaLogo,
-  command: () => message.success('Creating an Asana task Coming Soon')
-}]
 
 const Command = (props: any) => {
   const { color, name, icon } = props;
@@ -48,8 +40,46 @@ const Command = (props: any) => {
 }
 
 const Commands = () => {
+  const [isAsanaTaskFormVisible, setIsAsanaTaskFormVisible] = React.useState(false);
+  const [asanaFormRef, setAsanaFormRef] = React.useState()
+
+  const commands = [{
+    name: 'Create Task',
+    icon: sunsamaLogo,
+    command: () => message.success('Creating a task is coming soon')
+  }, {
+    name: 'Create Asana Task',
+    icon: asanaLogo,
+    command: () => setIsAsanaTaskFormVisible(true)
+  }]
+
+  const handleCancel = () => {
+    const { form } = asanaFormRef.props;
+    form.resetFields();
+    setIsAsanaTaskFormVisible(false)
+  }
+
+  const handleCreate = () => {
+    const { form } = asanaFormRef.props;
+    form.validateFields((err: Error | null, values: any) => {
+      if (err) {
+        return;
+      }
+
+      console.log('Received values of form: ', values);
+      form.resetFields();
+      setIsAsanaTaskFormVisible(false)
+    });
+  }
+
   return (
     <div className="Commands-button-wrapper">
+      <AsanaTaskCreateForm
+        wrappedComponentRef={setAsanaFormRef}
+        visible={isAsanaTaskFormVisible}
+        onCancel={handleCancel}
+        onCreate={handleCreate}
+      />
       <CommandPalette
         theme={theme}
         hotKeys='command+k'
