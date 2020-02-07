@@ -10,14 +10,14 @@ export interface IAsanaProps {
   project?: string
 }
 
-const Asana = (props: IAsanaProps) => {
-  // TODO Fetch tasks
-  const tasks: ITask[] = [{
-    description: 'Aliquam vel massa accumsan, accumsan ex eu, posuere nunc.',
-  }, {
-    description: 'Nam malesuada massa odio.',
-  }]
+// TODO Fetch tasks
+const tasks: ITask[] = [{
+  description: 'Aliquam vel massa accumsan, accumsan ex eu, posuere nunc.',
+}, {
+  description: 'Nam malesuada massa odio.',
+}]
 
+const Asana = (props: IAsanaProps) => {
   return (
     <Card className="Asana">
       <Row className="Asana-title">Asana</Row>
