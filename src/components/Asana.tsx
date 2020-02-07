@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Row, Button } from 'antd';
 import { map } from 'lodash';
-import Task, { ITask } from './Task';
+import { ITask } from './Task';
 import '../styles/Asana.css';
 import logo from '../asana_logo.png';
 import AsanaTask from './AsanaTask';

@@ -3,9 +3,8 @@ import React from 'react';
 import './App.css';
 
 import Schedule from './components/Schedule';
-import { Layout, Button } from 'antd';
+import { Layout } from 'antd';
 import moment from 'moment';
-import CommandPalette from 'react-command-palette';
 import { IDailySchedule } from './components/DailySchedule';
 import Asana from './components/Asana';
 import Commands from './components/Commands';
