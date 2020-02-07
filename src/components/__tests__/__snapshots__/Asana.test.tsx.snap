@@ -38,7 +38,7 @@ exports[`should find and render tasks when project is given 1`] = `
             <div
               className="Task-description"
             >
-              Aliquam vel massa accumsan, accumsan ex eu, posuere nunc.
+              Support search asana tasks from Command Palette
             </div>
           </div>
         </div>
@@ -62,7 +62,7 @@ exports[`should find and render tasks when project is given 1`] = `
             <div
               className="Task-description"
             >
-              Nam malesuada massa odio.
+              Add pagination to Asana integration
             </div>
           </div>
         </div>
@@ -124,7 +124,7 @@ exports[`should render a connect to asana button if there is no project given 1`
             <div
               className="Task-description"
             >
-              Aliquam vel massa accumsan, accumsan ex eu, posuere nunc.
+              Support search asana tasks from Command Palette
             </div>
           </div>
         </div>
@@ -148,7 +148,7 @@ exports[`should render a connect to asana button if there is no project given 1`
             <div
               className="Task-description"
             >
-              Nam malesuada massa odio.
+              Add pagination to Asana integration
             </div>
           </div>
         </div>

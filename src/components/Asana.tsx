@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Row, Button } from 'antd';
 import { map } from 'lodash';
-import Task, { ITask } from './Task';
+import { ITask } from './Task';
 import '../styles/Asana.css';
 import logo from '../asana_logo.png';
 import AsanaTask from './AsanaTask';
@@ -10,14 +10,14 @@ export interface IAsanaProps {
   project?: string
 }
 
-const Asana = (props: IAsanaProps) => {
-  // TODO Fetch tasks
-  const tasks: ITask[] = [{
-    description: 'Aliquam vel massa accumsan, accumsan ex eu, posuere nunc.',
-  }, {
-    description: 'Nam malesuada massa odio.',
-  }]
+// TODO Fetch tasks
+const tasks: ITask[] = [{
+  description: 'Support search asana tasks from Command Palette',
+}, {
+  description: 'Add pagination to Asana integration',
+}]
 
+const Asana = (props: IAsanaProps) => {
   return (
     <Card className="Asana">
       <Row className="Asana-title">Asana</Row>
