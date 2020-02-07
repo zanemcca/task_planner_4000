@@ -12,9 +12,9 @@ export interface IAsanaProps {
 
 // TODO Fetch tasks
 const tasks: ITask[] = [{
-  description: 'Aliquam vel massa accumsan, accumsan ex eu, posuere nunc.',
+  description: 'Support search asana tasks from Command Palette',
 }, {
-  description: 'Nam malesuada massa odio.',
+  description: 'Add pagination to Asana integration',
 }]
 
 const Asana = (props: IAsanaProps) => {

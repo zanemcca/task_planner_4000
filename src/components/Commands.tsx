@@ -4,6 +4,7 @@ import CommandPalette from 'react-command-palette';
 import { Button, message } from 'antd';
 
 import asanaLogo from '../asana_logo.png';
+import sunsamaLogo from '../sunsama_logo.png';
 import '../styles/Commands.css';
 
 const theme = {
@@ -28,6 +29,7 @@ const theme = {
 
 const commands = [{
   name: 'Create Task',
+  icon: sunsamaLogo,
   command: () => message.success('Creating a task is coming soon')
 }, {
   name: 'Create Asana Task',

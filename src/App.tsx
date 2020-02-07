@@ -27,31 +27,31 @@ const today = moment()
 const schedules: IDailySchedule[] = [{
   date: today,
   tasks: [{
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a sapien orci. Integer efficitur nunc sem, tristique lacinia lorem egestas at. Sed iaculis purus non nisl aliquet, tempor efficitur risus ornare. Aenean sapien lectus, varius quis lacus eget, facilisis ultricies leo.',
+    description: 'Review PR for Task Planner 4000',
     channel: channels.default,
     time: moment.duration('01:00:00'),
   }, {
-    description: 'Nam malesuada massa odio.',
+    description: 'Review emails',
     complete: true,
   }]
 }, {
   date: moment(today).add(1, 'd'),
   tasks: [{
-    description: 'Aliquam vel massa accumsan, accumsan ex eu, posuere nunc.',
+    description: 'Write up weekly check in',
     channel: channels.default,
     time: moment.duration('00:30:00'),
   }, {
-    description: 'Nam malesuada massa odio.',
+    description: 'Deploy beta command palette.',
     channel: channels.personal,
   }]
 }, {
   date: moment(today).add(2, 'd'),
   tasks: [{
-    description: 'Vestibulum consequat dictum arcu sit amet pellentesque.',
+    description: 'Set up CI for mobile project',
     complete: true,
     time: moment.duration('00:15:00'),
   }, {
-    description: 'Nullam magna leo, porttitor non semper quis, tempor quis leo.',
+    description: 'Review new user reported issues',
     channel: channels.personal,
     time: moment.duration('00:30:00'),
   }]
