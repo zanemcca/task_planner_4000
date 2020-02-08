@@ -8,6 +8,7 @@ import { ITask } from './Task';
 import logo from '../asana_logo.png';
 import AsanaTask from './AsanaTask';
 import { client } from '../lib/asana';
+import { useAsanaToken } from '../hooks/auth';
 
 export interface IAsanaProps {
   project?: string
@@ -21,15 +22,18 @@ const tasks: ITask[] = [{
 }]
 
 const Asana = (props: IAsanaProps) => {
+  const [token, setToken] = useAsanaToken();
+  // TODO Setup the asana client
+  // TODO fetch the asana tasks
   return (
     <Card className="Asana">
       <Row className="Asana-title">Asana</Row>
-      {!props.project && <Row className="Asana-connect">
+      {!token && <Row className="Asana-connect">
         <Button href={client.app.asanaAuthorizeUrl()} className="Asana-connect-button">
           <img src={logo} className="Asana-logo" height='32px' alt=''/> Connect Asana
         </Button>
       </Row>}
-    {props.project && (
+    {token && (
       <React.Fragment>
         <Row className="Asana-project">{
           props.project
