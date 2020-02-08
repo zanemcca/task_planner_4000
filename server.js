@@ -29,17 +29,19 @@ function createClient() {
   return Asana.Client.create({
     clientId: clientId,
     clientSecret: clientSecret,
+    redirectUri: 'http://localhost:3000/auth/callback/asana'
   });
 }
 
 // Authorization callback - redirected to from Asana.
-app.get('/auth/callback/asana', function(req, res) {
+app.use('/asana/callback', function(req, res) {
   var code = req.param('code');
   if (code) {
     var client = createClient();
     client.app.accessTokenFromCode(code).then(function(credentials) {
-      res.cookie('token', credentials.access_token, { maxAge: 60 * 60 * 1000 });
-      res.redirect('/');
+      res.send({
+        token: credentials.access_token
+      });
     });
   } else {
     // Authorization could have failed. Show an error.
@@ -48,6 +50,7 @@ app.get('/auth/callback/asana', function(req, res) {
 });
 
 app.use(express.static('build'))
+app.use('/auth/callback/asana', express.static('build/index.html'))
 
 // Run the server!
 var server = app.listen(port, function() {
