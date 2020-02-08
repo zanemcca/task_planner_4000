@@ -16,5 +16,6 @@ COPY --from=build-deps /usr/src/app/server.js server.js
 RUN yarn add express asana
 EXPOSE 8080
 ENV PORT 8080
+ENV NODE_ENV production
 
 CMD ["yarn", "serve"]
