@@ -1,0 +1,19 @@
+
+.Home {
+  height: 100%;
+  font-family: Avenir;
+}
+
+.Home-layout {
+  height: 100%;
+}
+
+.Home-content {
+  height: 100%;
+}
+
+.Home-sidebar {
+  min-width: 357px;
+  max-width: 357px;
+  height: 100%;
+}
