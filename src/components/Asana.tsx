@@ -22,7 +22,7 @@ const tasks: ITask[] = [{
 }]
 
 const Asana = (props: IAsanaProps) => {
-  const [token, setToken] = useAsanaToken();
+  const [token] = useAsanaToken();
   // TODO Setup the asana client
   // TODO fetch the asana tasks
   return (

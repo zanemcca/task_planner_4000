@@ -1,7 +1,7 @@
 
 import React, { useEffect } from 'react';
 import { RouteComponentProps, navigate } from '@reach/router';
-import { useDidMount, useFetch } from 'react-hooks-lib';
+import { useDidMount } from 'react-hooks-lib';
 import { ASANA_REDIRECT_URI } from '../lib/asana';
 import { Spin, message } from 'antd';
 import { useAsanaToken } from '../hooks/auth';
@@ -11,7 +11,7 @@ import '../styles/Asana.css';
 const AsanaCallback: React.FC<RouteComponentProps> = (props) => {
   const url = `${ASANA_REDIRECT_URI}asana/callback${props.location && props.location.search}`
   const [loading, setLoading ] = React.useState(true)
-  const [token, setToken] = useAsanaToken();
+  const setToken = useAsanaToken()[1];
   const [error, setError] = React.useState<Error | undefined>()
   const onMount = async () => {
     try {

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Layout, message } from 'antd';
+import { Layout } from 'antd';
 import moment from 'moment';
 
 import '../styles/Home.css';
