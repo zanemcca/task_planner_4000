@@ -13,7 +13,7 @@ COPY --from=build-deps /usr/src/app/build /usr/src/app/build
 COPY --from=build-deps /usr/src/app/package.json package.json
 COPY --from=build-deps /usr/src/app/yarn.lock yarn.lock
 COPY --from=build-deps /usr/src/app/server.js server.js
-RUN yarn install express asana
+RUN yarn add express asana
 EXPOSE 8080
 ENV PORT 8080
 
