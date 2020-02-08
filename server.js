@@ -25,11 +25,12 @@ var clientId = process.env['ASANA_CLIENT_ID'];
 var clientSecret = process.env['ASANA_CLIENT_SECRET'];
 var port = process.env['PORT'] || 3000;
 
-function createClient() {
+function createClient(req) {
+  const url = req.protocol + '://' + req.get('host')
   return Asana.Client.create({
     clientId: clientId,
     clientSecret: clientSecret,
-    redirectUri: 'http://localhost:3000/auth/callback/asana'
+    redirectUri: `${url}/auth/callback/asana`
   });
 }
 
@@ -37,7 +38,7 @@ function createClient() {
 app.use('/asana/callback', function(req, res) {
   var code = req.param('code');
   if (code) {
-    var client = createClient();
+    var client = createClient(req);
     client.app.accessTokenFromCode(code).then(function(credentials) {
       res.send({
         token: credentials.access_token
