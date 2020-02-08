@@ -10,7 +10,6 @@ import { IDailySchedule } from './DailySchedule';
 import Asana from './Asana';
 import Commands from './Commands';
 import { RouteComponentProps } from '@reach/router';
-import { client } from '../lib/asana';
 
 const { Sider, Content } = Layout
 
