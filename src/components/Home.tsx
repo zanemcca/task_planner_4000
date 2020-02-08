@@ -66,6 +66,7 @@ const asana = {
 
 const Home: React.FC<RouteComponentProps> = (props) => {
   console.log(props)
+    /*
   React.useEffect(() => {
     if (props.location && props.location.pathname === '/auth/callback/asana') {
       // TODO Fix cors issues
@@ -77,6 +78,7 @@ const Home: React.FC<RouteComponentProps> = (props) => {
       client.app.accessTokenFromCode(code).then(message.info).catch(message.error)
     }
   })
+     */
 
   return (
     <div className="Home">

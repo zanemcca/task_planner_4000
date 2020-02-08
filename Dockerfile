@@ -9,9 +9,8 @@ RUN yarn build
 # Stage 2 - the production environment
 FROM node:10-alpine
 WORKDIR /usr/src/app
-RUN yarn global add serve
 COPY --from=build-deps /usr/src/app/build /usr/src/app/build
 EXPOSE 8080
 ENV PORT 8080
 
-CMD ["serve", "-s", "build"]
+CMD ["yarn", "serve"]
