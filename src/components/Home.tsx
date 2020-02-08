@@ -65,21 +65,6 @@ const asana = {
 }
 
 const Home: React.FC<RouteComponentProps> = (props) => {
-  console.log(props)
-    /*
-  React.useEffect(() => {
-    if (props.location && props.location.pathname === '/auth/callback/asana') {
-      // TODO Fix cors issues
-      // TODO Save token to local storage
-      //  Create a context to save the storage
-      // TODO Navigate back to home
-      console.log(props.location.href)
-      const code = props.location.search
-      client.app.accessTokenFromCode(code).then(message.info).catch(message.error)
-    }
-  })
-     */
-
   return (
     <div className="Home">
       <Commands />

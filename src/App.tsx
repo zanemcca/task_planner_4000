@@ -8,7 +8,7 @@ import AsanaCallback from './components/AsanaCallback';
 
 const App = () => {
   return (
-    <Router>
+    <Router style={{ height: '100%' }}>
       <Home path="/"/>
       <AsanaCallback path="/auth/callback/asana" />
     </Router>
