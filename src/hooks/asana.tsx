@@ -122,7 +122,7 @@ export const useCreateAsanaTask = () => {
         ...mapTaskToAsanaTask(task as ITask)
       } as any)
 
-      const newTasks = [...tasks, mapAsanaTaskToTask(newTask)]
+      const newTasks = [mapAsanaTaskToTask(newTask), ...tasks]
       setTasks(newTasks)
 
       setState({
