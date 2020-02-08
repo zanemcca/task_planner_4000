@@ -11,7 +11,7 @@ import '../styles/Asana.css';
 const AsanaCallback: React.FC<RouteComponentProps> = (props) => {
   const url = `${ASANA_REDIRECT_URI}asana/callback${props.location && props.location.search}`
   const [loading, setLoading ] = React.useState(true)
-  const setToken = useAsanaToken()[1];
+  const setToken = useAsanaToken(null)[1];
   const [error, setError] = React.useState<Error | undefined>()
   const onMount = async () => {
     try {

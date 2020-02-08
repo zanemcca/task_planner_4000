@@ -7,6 +7,8 @@ import asanaLogo from '../asana_logo.png';
 import sunsamaLogo from '../sunsama_logo.png';
 import '../styles/Commands.css';
 import AsanaTaskCreateForm from './forms/AsanaTaskCreate';
+import { useAsanaToken } from '../hooks/auth';
+import { createClient } from '../lib/asana';
 
 const theme = {
   container: 'atom-container',
@@ -28,7 +30,6 @@ const theme = {
   trigger: 'atom-trigger'
 }
 
-
 const Command = (props: any) => {
   const { color, name, icon } = props;
   return (
@@ -42,31 +43,45 @@ const Command = (props: any) => {
 const Commands = () => {
   const [isAsanaTaskFormVisible, setIsAsanaTaskFormVisible] = React.useState(false);
   const [asanaFormRef, setAsanaFormRef] = React.useState()
+  const [token] = useAsanaToken(null);
 
   const commands = [{
     name: 'Create Task',
     icon: sunsamaLogo,
     command: () => message.success('Creating a task is coming soon')
   }, {
-    name: 'Create Asana Task',
+    name: token ? 'Create Asana Task' : 'Connect to Asana',
     icon: asanaLogo,
-    command: () => setIsAsanaTaskFormVisible(true)
+    command: () => {
+      if (!token) {
+        window.location.replace(createClient().app.asanaAuthorizeUrl())
+      } else {
+        setIsAsanaTaskFormVisible(true)
+      }
+    }
   }]
 
-  const handleCancel = () => {
+  const handleAsanaTaskCreateCancel = () => {
     const { form } = asanaFormRef.props;
     form.resetFields();
     setIsAsanaTaskFormVisible(false)
   }
 
-  const handleCreate = () => {
+  const handleAsanaTaskCreate = async () => {
     const { form } = asanaFormRef.props;
-    form.validateFields((err: Error | null, values: any) => {
+    form.validateFields(async (err: Error | null, values: any) => {
       if (err) {
         return;
       }
 
-      console.log('Received values of form: ', values);
+      const client = createClient(token!)
+      const me = await client.users.me()
+      const workspace = me.workspaces[0]
+      const res = await client.tasks.create({
+        assignee: me.gid,
+        workspace: workspace.gid,
+        name: values.title
+      } as any)
       form.resetFields();
       setIsAsanaTaskFormVisible(false)
     });
@@ -77,8 +92,8 @@ const Commands = () => {
       <AsanaTaskCreateForm
         wrappedComponentRef={setAsanaFormRef}
         visible={isAsanaTaskFormVisible}
-        onCancel={handleCancel}
-        onCreate={handleCreate}
+        onCancel={handleAsanaTaskCreateCancel}
+        onCreate={handleAsanaTaskCreate}
       />
       <CommandPalette
         theme={theme}

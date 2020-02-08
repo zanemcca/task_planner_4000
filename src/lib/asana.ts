@@ -16,6 +16,8 @@ export const createClient = (token?: string) => {
     client.useOauth({
       credentials: token
     });
+  } else {
+    client.useOauth()
   }
 
   return client

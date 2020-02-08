@@ -20,12 +20,12 @@ const mapAsanaTaskToTask = ({ name, completed }: any) => ({
 })
 
 const Asana = (props: IAsanaProps) => {
-  const [token] = useAsanaToken();
+  const [token] = useAsanaToken(null);
   const [tasks, setTasks] = useState<ITask[]>([])
   const [workspace, setWorkspace] = useState<string | undefined>()
   useEffect(() => {
     if (token !== undefined && token !== null) {
-      const client = createClient(token)
+      const client = createClient(token!)
       client.users.me()
         .then(user => {
           console.log(user)
