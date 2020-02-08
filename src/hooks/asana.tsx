@@ -4,8 +4,7 @@ import { createStateContext, usePrevious } from 'react-use';
 import { ITask } from "../components/Task";
 import { map } from "lodash";
 import { createClient } from "../lib/asana";
-import { useEffect, useState } from "react";
-import { message } from "antd";
+import { useEffect, useState, useCallback } from "react";
 
 export interface IUseAsanaTasksResult {
   loading: boolean
@@ -39,15 +38,10 @@ export const useAsanaTasks = () => {
   const [credentials] = useAsanaCredentials();
   const prevCredentials = usePrevious(credentials);
   const [tasks, setTasks] = useTasks()
-  const prevTasks = usePrevious(tasks);
-  console.log('useAsnaTask')
-  console.log(tasks)
-  const [state, setState] = useState<IUseAsanaTasksResult>({
+  const [state, setState] = useState<Omit<IUseAsanaTasksResult, 'tasks'>>({
     sync: async () => {
-      console.log('Syncing Asana Tasks!')
       const token = credentials.access_token
       if (token) {
-        state.loading = true
         setState({
           ...state,
           loading: true
@@ -73,7 +67,6 @@ export const useAsanaTasks = () => {
           setState({
             ...state,
             workspace: user.workspaces[0].name,
-            tasks: newTasks,
             loading: false
           })
         } catch(error) {
@@ -86,72 +79,71 @@ export const useAsanaTasks = () => {
       }
     },
     loading: false,
-    tasks
   })
 
   useEffect(() => {
-    if (prevCredentials !== credentials) {
+    if (!prevCredentials || prevCredentials.access_token !== credentials.access_token) {
       state.sync()
     }
-  }, [credentials.access_token, state])
+  }, [credentials.access_token, state, prevCredentials])
 
-  useEffect(() => {
-    if (prevTasks !== tasks) {
-      setState({
-        ...state,
-        tasks
-      })
-    }
-  }, [tasks, state])
-
-  return state
+  return {
+    ...state,
+    tasks
+  }
 }
 
 export const useCreateAsanaTask = () => {
   const [credentials] = useAsanaCredentials();
   const [tasks, setTasks] = useTasks()
-  const createTask = (tasks: ITask[]) => async (task: Pick<ITask, 'description'> & Partial<Omit<ITask, 'description'>>) => {
-    console.log(tasks)
-    const token = credentials.access_token
-    if (!token) {
-      message.error('Oops Looks like you are not logged into Asana. Please try again')
-      return
-    }
-    const client = createClient(token!)
-
-    const me = await client.users.me()
-    const workspace = me.workspaces[0]
-
-    const res = await client.tasks.create({
-      assignee: me.gid,
-      workspace: workspace.gid,
-      ...mapTaskToAsanaTask(task)
-    } as any)
-
-    const newTasks = [...tasks, task]
-    setTasks(newTasks)
-    setState({
-      ...state,
-      createTask: createTask(tasks),
-      tasks: newTasks
-    })
-  }
-
-  const [state, setState] = useState<IUseCreateAsanaTaskResult>({
-    createTask: createTask(tasks),
-    loading: false,
-    tasks
+  const [state, setState] = useState<Omit<IUseCreateAsanaTaskResult, 'createTask' | 'tasks'>>({
+    loading: false
   })
 
-  useEffect(() => {
+  const createTask = useCallback(async (task: Partial<ITask>) => {
     setState({
       ...state,
-      createTask: createTask(tasks),
-      tasks
+      loading: true
     })
-  }, [tasks])
 
-  return state
+    try {
+      const token = credentials.access_token
+      if (!token) {
+        throw new Error('Oops Looks like you are not logged into Asana. Please try again')
+      }
+
+      const client = createClient(token!)
+      const me = await client.users.me()
+      const workspace = me.workspaces[0]
+
+      const newTask = await client.tasks.create({
+        assignee: me.gid,
+        workspace: workspace.gid,
+        ...mapTaskToAsanaTask(task as ITask)
+      } as any)
+
+      const newTasks = [...tasks, mapAsanaTaskToTask(newTask)]
+      setTasks(newTasks)
+
+      setState({
+        ...state,
+        workspace: workspace.name,
+        loading: false
+      })
+    } catch(error) {
+      setState({
+        ...state,
+        loading: false,
+        error
+      })
+    }
+  }, [tasks, credentials.access_token, setTasks, state])
+
+  return {
+    ...state,
+    createTask,
+    tasks
+  }
 }
 
 export interface IAsanaCredentials {

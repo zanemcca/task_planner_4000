@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Card, Row, Button, Spin } from 'antd';
-import { map, forEach } from 'lodash';
+import { map } from 'lodash';
 
 import '../styles/Asana.css';
 
-import { ITask } from './Task';
 import logo from '../asana_logo.png';
 import AsanaTask from './AsanaTask';
 import { createClient } from '../lib/asana';
 import { useAsanaTasks, useAsanaCredentials } from '../hooks/asana';
-import CenterSpin from './CenterSpin';
 
 export interface IAsanaProps {}
 
