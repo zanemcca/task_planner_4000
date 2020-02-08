@@ -24,11 +24,11 @@ var app = express();
 var clientId = process.env['ASANA_CLIENT_ID'];
 var clientSecret = process.env['ASANA_CLIENT_SECRET'];
 var port = process.env['PORT'] || 3000;
+console.log(process.env)
 
 function createClient(req) {
   const url = (process.env.NODE_ENV === 'production' ? 'https': 'http') + '://' + req.get('host')
   console.log(url)
-  console.log(req)
   return Asana.Client.create({
     clientId: clientId,
     clientSecret: clientSecret,
