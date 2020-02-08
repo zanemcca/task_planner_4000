@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import CommandPalette from 'react-command-palette';
 import { Button, message } from 'antd';
 
@@ -41,8 +41,9 @@ const Command = (props: any) => {
 }
 
 const Commands = () => {
-  const [isAsanaTaskFormVisible, setIsAsanaTaskFormVisible] = React.useState(false);
-  const [asanaFormRef, setAsanaFormRef] = React.useState()
+  const [loading, setLoading] = useState(false)
+  const [isAsanaTaskFormVisible, setIsAsanaTaskFormVisible] = useState(false);
+  const [asanaFormRef, setAsanaFormRef] = useState()
   const [token] = useAsanaToken(null);
 
   const commands = [{
@@ -68,9 +69,12 @@ const Commands = () => {
   }
 
   const handleAsanaTaskCreate = async () => {
+    setLoading(true)
     const { form } = asanaFormRef.props;
     form.validateFields(async (err: Error | null, values: any) => {
       if (err) {
+        message.error(err.message)
+        setLoading(false)
         return;
       }
 
@@ -83,6 +87,7 @@ const Commands = () => {
         name: values.title
       } as any)
       form.resetFields();
+      setLoading(false)
       setIsAsanaTaskFormVisible(false)
     });
   }
@@ -94,6 +99,7 @@ const Commands = () => {
         visible={isAsanaTaskFormVisible}
         onCancel={handleAsanaTaskCreateCancel}
         onCreate={handleAsanaTaskCreate}
+        loading={loading}
       />
       <CommandPalette
         theme={theme}

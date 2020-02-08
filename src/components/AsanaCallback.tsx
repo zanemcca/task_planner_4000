@@ -3,10 +3,9 @@ import React, { useEffect } from 'react';
 import { RouteComponentProps, navigate } from '@reach/router';
 import { useDidMount } from 'react-hooks-lib';
 import { ASANA_REDIRECT_URI } from '../lib/asana';
-import { Spin, message } from 'antd';
+import { message } from 'antd';
 import { useAsanaToken } from '../hooks/auth';
-
-import '../styles/Asana.css';
+import CenterSpin from './CenterSpin';
 
 const AsanaCallback: React.FC<RouteComponentProps> = (props) => {
   const url = `${ASANA_REDIRECT_URI}asana/callback${props.location && props.location.search}`
@@ -38,9 +37,7 @@ const AsanaCallback: React.FC<RouteComponentProps> = (props) => {
   }, [error])
 
   return (
-    <div className="AsanaCallback">
-      {loading && <Spin size='large'/>}
-    </div>
+    <CenterSpin loading={loading} size='large' />
   )
 }
 

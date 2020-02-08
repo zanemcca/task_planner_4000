@@ -4,6 +4,7 @@ import { Form, Modal, Input } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 
 export interface IAsanaTaskCreateProps extends FormComponentProps {
+  loading: boolean
   visible: boolean
   onCancel: () => void
   onCreate: () => void
@@ -13,7 +14,7 @@ const AsanaTaskCreateForm = Form.create<IAsanaTaskCreateProps>({ name: 'asana_ta
   // eslint-disable-next-line
   class extends React.Component<IAsanaTaskCreateProps> {
     render() {
-      const { visible, onCancel, onCreate, form } = this.props;
+      const { loading, visible, onCancel, onCreate, form } = this.props;
       const { getFieldDecorator } = form;
       return (
         <Modal
@@ -21,6 +22,7 @@ const AsanaTaskCreateForm = Form.create<IAsanaTaskCreateProps>({ name: 'asana_ta
           title="Create a new Asana task"
           okText="Create"
           onCancel={onCancel}
+          confirmLoading={loading}
           onOk={onCreate}
         >
           <Form layout="vertical">

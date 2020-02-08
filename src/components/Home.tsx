@@ -59,10 +59,6 @@ const schedules: IDailySchedule[] = [{
   }]
 }]
 
-const asana = {
-  project: undefined
-}
-
 const Home: React.FC<RouteComponentProps> = (props) => {
   return (
     <div className="Home">
@@ -72,7 +68,7 @@ const Home: React.FC<RouteComponentProps> = (props) => {
           <Schedule dailySchedules={schedules}/>
         </Content>
         <Sider theme="light" width='25%' className="Home-sider">
-          <Asana project={asana.project}/>
+          <Asana />
         </Sider>
       </Layout>
     </div>
