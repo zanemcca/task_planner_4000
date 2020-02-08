@@ -13,6 +13,15 @@ export interface IAsanaTaskCreateProps extends FormComponentProps {
 const AsanaTaskCreateForm = Form.create<IAsanaTaskCreateProps>({ name: 'asana_task_create_form' })(
   // eslint-disable-next-line
   class extends React.Component<IAsanaTaskCreateProps> {
+    private input: any
+    componentDidUpdate() {
+      if (this.props.visible) {
+        setTimeout(() => {
+          this.input && this.input.focus()
+        }, 100)
+      }
+    }
+
     render() {
       const { loading, visible, onCancel, onCreate, form } = this.props;
       const { getFieldDecorator } = form;
@@ -29,7 +38,7 @@ const AsanaTaskCreateForm = Form.create<IAsanaTaskCreateProps>({ name: 'asana_ta
             <Form.Item label="Title">
               {getFieldDecorator('title', {
                 rules: [{ required: true, message: 'Please input the title of task!' }],
-              })(<Input />)}
+              })(<Input ref={input => this.input = input} />)}
             </Form.Item>
           </Form>
         </Modal>
