@@ -40,9 +40,7 @@ app.use('/asana/callback', function(req, res) {
   if (code) {
     var client = createClient(req);
     client.app.accessTokenFromCode(code).then(function(credentials) {
-      res.send({
-        token: credentials.access_token
-      });
+      res.send(credentials);
     });
   } else {
     // Authorization could have failed. Show an error.

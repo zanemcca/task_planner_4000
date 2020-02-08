@@ -7,8 +7,8 @@ import asanaLogo from '../asana_logo.png';
 import sunsamaLogo from '../sunsama_logo.png';
 import '../styles/Commands.css';
 import AsanaTaskCreateForm from './forms/AsanaTaskCreate';
-import { useAsanaToken } from '../hooks/auth';
 import { createClient } from '../lib/asana';
+import { useCreateAsanaTask, useAsanaCredentials } from '../hooks/asana';
 
 const theme = {
   container: 'atom-container',
@@ -44,17 +44,19 @@ const Commands = () => {
   const [loading, setLoading] = useState(false)
   const [isAsanaTaskFormVisible, setIsAsanaTaskFormVisible] = useState(false);
   const [asanaFormRef, setAsanaFormRef] = useState()
-  const [token] = useAsanaToken(null);
+  const [credentials] = useAsanaCredentials();
+  const { createTask } = useCreateAsanaTask();
 
+  const isAsanaAuthorized = !!credentials.access_token
   const commands = [{
     name: 'Create Task',
     icon: sunsamaLogo,
     command: () => message.success('Creating a task is coming soon')
   }, {
-    name: token ? 'Create Asana Task' : 'Connect to Asana',
+    name: isAsanaAuthorized ? 'Create Asana Task' : 'Connect to Asana',
     icon: asanaLogo,
     command: () => {
-      if (!token) {
+      if (!isAsanaAuthorized) {
         window.location.replace(createClient().app.asanaAuthorizeUrl())
       } else {
         setIsAsanaTaskFormVisible(true)
@@ -78,14 +80,9 @@ const Commands = () => {
         return;
       }
 
-      const client = createClient(token!)
-      const me = await client.users.me()
-      const workspace = me.workspaces[0]
-      const res = await client.tasks.create({
-        assignee: me.gid,
-        workspace: workspace.gid,
-        name: values.title
-      } as any)
+      await createTask({
+        description: values.title
+      })
       form.resetFields();
       setLoading(false)
       setIsAsanaTaskFormVisible(false)

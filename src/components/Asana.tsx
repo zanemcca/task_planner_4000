@@ -8,24 +8,24 @@ import { ITask } from './Task';
 import logo from '../asana_logo.png';
 import AsanaTask from './AsanaTask';
 import { createClient } from '../lib/asana';
-import { useAsanaToken } from '../hooks/auth';
-import { useAsanaTasks } from '../hooks/asana';
+import { useAsanaTasks, useAsanaCredentials } from '../hooks/asana';
 import CenterSpin from './CenterSpin';
 
 export interface IAsanaProps {}
 
 const Asana = (props: IAsanaProps) => {
-  const [token] = useAsanaToken(null);
+  const [credentials] = useAsanaCredentials();
+  const isAsanaAuthorized = !!credentials.access_token
   const { tasks, workspace, loading } = useAsanaTasks()
   return (
     <Card className="Asana">
       <Row className="Asana-title">Asana</Row>
-      {!token && <Row className="Asana-connect">
+      {!isAsanaAuthorized && <Row className="Asana-connect">
         <Button href={createClient().app.asanaAuthorizeUrl()} className="Asana-connect-button">
           <img src={logo} className="Asana-logo" height='32px' alt=''/> Connect Asana
         </Button>
       </Row>}
-    {token && (
+    {isAsanaAuthorized && (
       <React.Fragment>
         <Row className="Asana-project">{workspace}</Row>
         {loading && <Row className="Asana-loading">
