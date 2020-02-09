@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Form, Modal } from 'antd';
+import { Modal } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import { WrappedFormUtils } from 'antd/lib/form/Form';
 
@@ -52,12 +52,12 @@ export const withModalWrapper = (opts?: IWithModalWrapperArgs) => <TProps extend
     }
 
     render() {
-      const { loading, visible, onCancel, onCreate, form } = this.props;
+      const { loading, visible, onCancel, onCreate } = this.props;
       return (
         <Modal
           visible={visible}
           title={opts && opts.title}
-          okText={opts && opts.okText || 'Create'}
+          okText={(opts && opts.okText) || 'Create'}
           onCancel={onCancel}
           confirmLoading={loading}
           onOk={onCreate}

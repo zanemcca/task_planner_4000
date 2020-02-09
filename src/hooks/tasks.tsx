@@ -1,5 +1,4 @@
 
-import createPersistedState from 'use-persisted-state';
 import { ITask } from '../components/Task';
 import { createStateContext } from 'react-use';
 import { useState, useCallback } from 'react';
@@ -62,7 +61,7 @@ export const useCreateTask = () => {
         resolve()
       }, 1500)
     })
-  }, [tasks, setTasks, loading])
+  }, [tasks, setTasks])
 
   return {
     loading,

@@ -1,12 +1,8 @@
 
 import React from 'react';
-import { Form, Modal, Input, DatePicker, TimePicker, Select, Col, InputNumber, Radio } from 'antd';
-import { FormComponentProps } from 'antd/lib/form';
+import { Form, Input, DatePicker, Col, InputNumber, Radio } from 'antd';
 import { withModalWrapper, IModalFormProps, IWrappedModelFormProps } from './ModalFormWrapper';
 import moment from 'moment';
-import Channel, { IChannel } from '../Channel';
-import { map } from 'lodash';
-import { useChannels } from '../../hooks/channels';
 import ChannelSelect from '../ChannelSelect';
 
 export type ITaskCreateProps = IWrappedModelFormProps

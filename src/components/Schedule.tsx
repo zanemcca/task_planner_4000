@@ -3,7 +3,7 @@ import { Col } from 'antd';
 
 import '../styles/Schedule.css';
 
-import DailySchedule, { IDailySchedule } from './DailySchedule';
+import DailySchedule from './DailySchedule';
 import { map, groupBy, sortBy, values } from 'lodash';
 import { useTasks } from '../hooks/tasks';
 import moment from 'moment';

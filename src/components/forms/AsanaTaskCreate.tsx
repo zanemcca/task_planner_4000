@@ -1,7 +1,6 @@
 
 import React from 'react';
-import { Form, Modal, Input } from 'antd';
-import { FormComponentProps } from 'antd/lib/form';
+import { Form, Input } from 'antd';
 import { withModalWrapper, IModalFormProps, IWrappedModelFormProps } from './ModalFormWrapper';
 
 export type IAsanaTaskCreateProps = IWrappedModelFormProps

@@ -10,7 +10,6 @@ import AsanaTaskCreateForm from './forms/AsanaTaskCreate';
 import TaskCreateForm from './forms/TaskCreate';
 import { createClient } from '../lib/asana';
 import { useCreateAsanaTask, useAsanaCredentials } from '../hooks/asana';
-import { ITask } from './Task';
 import { useCreateTask } from '../hooks/tasks';
 import moment from 'moment';
 
@@ -116,7 +115,6 @@ const Commands = () => {
         return;
       }
 
-      console.log(task)
       const newTask = { ...task }
       if (task.time) {
         newTask.time = moment.duration().add(task.time, task.timeUnit)
