@@ -45,12 +45,16 @@ export interface IHoursOrMinutesProps {
   value?: 'hour' | 'minute'
   onChange?: (e: any) => void
 }
-const HoursOrMinutes = (props: IHoursOrMinutesProps) => (
-  <Radio.Group value={props.value} onChange={props.onChange}>
-    <Radio.Button value="minute">Minutes</Radio.Button>
-    <Radio.Button value="hour">Hours</Radio.Button>
-  </Radio.Group>
-)
+class HoursOrMinutes extends React.Component<IHoursOrMinutesProps> {
+  render() {
+    return (
+      <Radio.Group value={this.props.value} onChange={this.props.onChange}>
+        <Radio.Button value="minute">Minutes</Radio.Button>
+        <Radio.Button value="hour">Hours</Radio.Button>
+      </Radio.Group>
+    )
+  }
+}
 
 const TaskCreateForm = Form.create<ITaskCreateProps>({ name: 'task_create_form' })(RawTaskCreateForm);
 

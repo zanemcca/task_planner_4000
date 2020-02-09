@@ -35,20 +35,24 @@ export interface IWithModalWrapperArgs {
 export const withModalWrapper = (opts?: IWithModalWrapperArgs) => <TProps extends IModalFormProps = any>(Component: React.FunctionComponent<TProps>) => {
   return class extends React.Component<IModalFormWrapperProps> {
     private inputRefHolder: IRefHolder = {}
-    private hasFocused = false
+    state: { hasFocused: boolean } = { hasFocused: false }
     componentDidUpdate() {
-      if (this.props.visible && !this.hasFocused) {
+      if (this.props.visible && !this.state.hasFocused) {
         setTimeout(() => {
           if (this.inputRefHolder.ref) {
             this.inputRefHolder.ref.focus()
-            this.hasFocused = true
+            this.setState({
+              hasFocused: true
+            })
           }
         }, 100)
       }
     }
 
-    componentDidUnmount() {
-      this.hasFocused = false
+    componentWillUnmount() {
+      this.setState({
+        hasFocused: false
+      })
     }
 
     render() {
@@ -58,6 +62,7 @@ export const withModalWrapper = (opts?: IWithModalWrapperArgs) => <TProps extend
           visible={visible}
           title={opts && opts.title}
           okText={(opts && opts.okText) || 'Create'}
+          destroyOnClose={true}
           onCancel={onCancel}
           confirmLoading={loading}
           onOk={onCreate}
