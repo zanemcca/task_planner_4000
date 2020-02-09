@@ -27,6 +27,10 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+### `yarn serve`
+
+Serve the build folder and provide callback URI for oauth token authorization
+
 ### `yarn eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
@@ -37,8 +41,7 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## Developers
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Asana Integration
+Asana authorization will not work with `yarn start`. If you need Asana authorization flow you will have to run `yarn build && yarn serve` which will serve the application with the oauth routes enabled on the backend. Once you have authorized once your token will be cached in your browser so you can go back to using `yarn start`

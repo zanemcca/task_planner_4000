@@ -1,21 +1,2 @@
 
 @import '~antd/dist/antd.css';
-
-.App {
-  height: 100%;
-  font-family: Avenir;
-}
-
-.App-layout {
-  height: 100%;
-}
-
-.App-content {
-  height: 100%;
-}
-
-.App-sidebar {
-  min-width: 357px;
-  max-width: 357px;
-  height: 100%;
-}

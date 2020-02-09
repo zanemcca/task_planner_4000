@@ -1,15 +1,15 @@
-name: Build and Deploy to Cloud Run
+name: Build and Deploy to Cloud Run (Preview)
 
 on:
   push:
     branches:
-    - master
+    - preview
 
 # Environment variables available to all jobs and steps in this workflow
 env:
   PROJECT_ID: ${{ secrets.GCLOUD_PROJECT }}
   RUN_REGION: us-central1
-  SERVICE_NAME: task-planner
+  SERVICE_NAME: task-planner-preview
   ASANA_CLIENT_ID: ${{ secrets.ASANA_CLIENT_ID }}
   ASANA_CLIENT_SECRET: ${{ secrets.ASANA_CLIENT_SECRET }}
 
@@ -18,7 +18,7 @@ env:
 
 jobs:
   setup-build-deploy:
-    name: Setup, Build, and Deploy
+    name: Setup, Build, and Deploy to Preview
     runs-on: ubuntu-latest
 
     steps:

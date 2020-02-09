@@ -9,9 +9,13 @@ RUN yarn build
 # Stage 2 - the production environment
 FROM node:10-alpine
 WORKDIR /usr/src/app
-RUN yarn global add serve
 COPY --from=build-deps /usr/src/app/build /usr/src/app/build
+COPY --from=build-deps /usr/src/app/package.json package.json
+COPY --from=build-deps /usr/src/app/yarn.lock yarn.lock
+COPY --from=build-deps /usr/src/app/server.js server.js
+RUN yarn add express asana
 EXPOSE 8080
 ENV PORT 8080
+ENV NODE_ENV production
 
-CMD ["serve", "-s", "build"]
+CMD ["yarn", "serve"]
