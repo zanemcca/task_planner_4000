@@ -8,6 +8,7 @@
 
 .custom-modal {
   width: 605px;
+  max-width: 100%;
   position: absolute;
   top: 80px;
   left: 50%;
@@ -31,6 +32,7 @@
   border: 1px solid #EEEEEE;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
   width: 585px;
+  max-width: 100%;
   padding: 6px;
   outline: none;
   color: #333333;
@@ -43,6 +45,7 @@
   border: 2px solid #568af2;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
   width: 585px;
+  max-width: 100%;
   padding: 6px;
   outline: none;
   color: #333333;
@@ -65,6 +68,7 @@
 .custom-suggestionsContainer {
   border: 1px solid #EEEEEE;
   width: 585px;
+  max-width: 100%;
   border-radius: 4px;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
   background: #FFFFFF;
