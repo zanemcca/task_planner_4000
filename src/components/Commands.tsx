@@ -117,7 +117,10 @@ const Commands = () => {
         return;
       }
 
-      const newTask = { ...task }
+      const newTask = {
+        created: moment(),
+        ...task,
+      }
       if (task.time) {
         newTask.time = moment.duration().add(task.time, task.timeUnit)
       }
