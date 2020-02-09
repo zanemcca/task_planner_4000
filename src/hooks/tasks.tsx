@@ -55,7 +55,6 @@ export const useCreateTask = () => {
     return new Promise((resolve) => {
       setTimeout(() => {
         const newTasks = [task, ...tasks]
-        console.log(newTasks)
         setTasks(newTasks)
         setLoading(false)
         resolve()
