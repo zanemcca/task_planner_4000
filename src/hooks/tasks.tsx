@@ -12,35 +12,41 @@ export interface IUseCreateTaskResult {
   tasks: ITask[]
 }
 
-const today = moment()
+const today = moment().startOf('day')
 
 const channels = useChannels()
 
 export const [useTasks, TasksProvider] = createStateContext<ITask[]>([{
   date: today,
+  created: moment(),
   description: 'Review PR for Task Planner 4000',
   channel: channels.default,
   time: moment.duration('01:00:00'),
 }, {
-  date: moment(today).add(1, 's'),
+  date: today,
+  created: moment(),
   description: 'Review emails',
   complete: true,
 }, {
   date: moment(today).add(1, 'd'),
+  created: moment(),
   description: 'Write up weekly check in',
   channel: channels.default,
   time: moment.duration('00:30:00'),
 }, {
-  date: moment(today).add(1, 'd').add(1, 's'),
+  date: moment(today).add(1, 'd'),
+  created: moment(),
   description: 'Deploy beta command palette.',
   channel: channels.personal,
 }, {
   date: moment(today).add(2, 'd'),
+  created: moment(),
   description: 'Set up CI for mobile project',
   complete: true,
   time: moment.duration('00:15:00'),
 }, {
-  date: moment(today).add(2, 'd').add(1, 's'),
+  date: moment(today).add(2, 'd'),
+  created: moment(),
   description: 'Review new user reported issues',
   channel: channels.personal,
   time: moment.duration('00:30:00'),

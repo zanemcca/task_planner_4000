@@ -32,6 +32,7 @@ const mapTaskToAsanaTask = ({ description, complete }: ITask) => ({
 
 const mapAsanaTaskToTask = ({ name, completed }: any): ITask => ({
   date: moment(), // TODO get the date from the asana object
+  created: moment(),
   description: name,
   complete: completed
 })
