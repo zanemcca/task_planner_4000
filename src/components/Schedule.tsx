@@ -14,7 +14,7 @@ const Schedule = () => {
   return (
     <div className="Schedule">
       {map(schedules, (tasks, day) => (
-        <Col key={day} span={8}>
+        <Col key={day} xs={24} md={12} lg={8}>
           <DailySchedule date={tasks[0].date} tasks={sortBy(tasks, 'created')}/>
         </Col>
       ))}
