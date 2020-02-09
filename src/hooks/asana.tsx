@@ -5,6 +5,7 @@ import { ITask } from "../components/Task";
 import { map } from "lodash";
 import { createClient } from "../lib/asana";
 import { useEffect, useState, useCallback } from "react";
+import moment from 'moment';
 
 export interface IUseAsanaTasksResult {
   loading: boolean
@@ -30,6 +31,7 @@ const mapTaskToAsanaTask = ({ description, complete }: ITask) => ({
 })
 
 const mapAsanaTaskToTask = ({ name, completed }: any): ITask => ({
+  date: moment(), // TODO get the date from the asana object
   description: name,
   complete: completed
 })

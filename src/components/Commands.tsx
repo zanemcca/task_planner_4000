@@ -7,8 +7,11 @@ import asanaLogo from '../asana_logo.png';
 import sunsamaLogo from '../sunsama_logo.png';
 import '../styles/Commands.css';
 import AsanaTaskCreateForm from './forms/AsanaTaskCreate';
+import TaskCreateForm from './forms/TaskCreate';
 import { createClient } from '../lib/asana';
 import { useCreateAsanaTask, useAsanaCredentials } from '../hooks/asana';
+import { ITask } from './Task';
+import { useCreateTask } from '../hooks/tasks';
 
 const theme = {
   container: 'atom-container',
@@ -42,16 +45,23 @@ const Command = (props: any) => {
 
 const Commands = () => {
   const [loading, setLoading] = useState(false)
+
+  const [credentials] = useAsanaCredentials();
   const [isAsanaTaskFormVisible, setIsAsanaTaskFormVisible] = useState(false);
   const [asanaFormRef, setAsanaFormRef] = useState()
-  const [credentials] = useAsanaCredentials();
-  const { createTask } = useCreateAsanaTask();
+  const { createTask: createAsanaTask } = useCreateAsanaTask();
+
+  const [isTaskFormVisible, setIsTaskFormVisible] = useState(false);
+  const [taskFormRef, setTaskFormRef] = useState()
+  const { createTask } = useCreateTask();
 
   const isAsanaAuthorized = !!credentials.access_token
   const commands = [{
     name: 'Create Task',
     icon: sunsamaLogo,
-    command: () => message.success('Creating a task is coming soon')
+    command: () => {
+      setIsTaskFormVisible(true)
+    }
   }, {
     name: isAsanaAuthorized ? 'Create Asana Task' : 'Connect to Asana',
     icon: asanaLogo,
@@ -80,12 +90,36 @@ const Commands = () => {
         return;
       }
 
-      await createTask({
+      await createAsanaTask({
         description: values.title
       })
       form.resetFields();
       setLoading(false)
       setIsAsanaTaskFormVisible(false)
+    });
+  }
+
+  const handleTaskCreateCancel = () => {
+    const { form } = taskFormRef.props;
+    form.resetFields();
+    setIsTaskFormVisible(false)
+  }
+
+  const handleTaskCreate = async () => {
+    setLoading(true)
+    const { form } = taskFormRef.props;
+    form.validateFields(async (err: Error | null, task: ITask) => {
+      if (err) {
+        message.error(err.message)
+        setLoading(false)
+        return;
+      }
+
+      console.log(task)
+      await createTask(task)
+      form.resetFields();
+      setLoading(false)
+      setIsTaskFormVisible(false)
     });
   }
 
@@ -96,6 +130,13 @@ const Commands = () => {
         visible={isAsanaTaskFormVisible}
         onCancel={handleAsanaTaskCreateCancel}
         onCreate={handleAsanaTaskCreate}
+        loading={loading}
+      />
+      <TaskCreateForm
+        wrappedComponentRef={setTaskFormRef}
+        visible={isTaskFormVisible}
+        onCancel={handleTaskCreateCancel}
+        onCreate={handleTaskCreate}
         loading={loading}
       />
       <CommandPalette
