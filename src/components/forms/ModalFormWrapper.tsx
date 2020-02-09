@@ -36,16 +36,24 @@ export const withModalWrapper = (opts?: IWithModalWrapperArgs) => <TProps extend
   return class extends React.Component<IModalFormWrapperProps> {
     private inputRefHolder: IRefHolder = {}
     state: { hasFocused: boolean } = { hasFocused: false }
+
     componentDidUpdate() {
-      if (this.props.visible && !this.state.hasFocused) {
-        setTimeout(() => {
-          if (this.inputRefHolder.ref) {
-            this.inputRefHolder.ref.focus()
-            this.setState({
-              hasFocused: true
-            })
-          }
-        }, 100)
+      if (this.props.visible) {
+        if (!this.state.hasFocused) {
+          setTimeout(() => {
+            if (this.inputRefHolder.ref) {
+              console.log('Focusing')
+              this.inputRefHolder.ref.focus()
+              this.setState({
+                hasFocused: true
+              })
+            }
+          }, 100)
+        }
+      } else if(this.state.hasFocused) {
+        this.setState({
+          hasFocused: false
+        })
       }
     }
 
@@ -62,7 +70,6 @@ export const withModalWrapper = (opts?: IWithModalWrapperArgs) => <TProps extend
           visible={visible}
           title={opts && opts.title}
           okText={(opts && opts.okText) || 'Create'}
-          destroyOnClose={true}
           onCancel={onCancel}
           confirmLoading={loading}
           onOk={onCreate}
