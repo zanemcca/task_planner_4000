@@ -2,13 +2,17 @@
 import React, { useState } from 'react';
 import CommandPalette from 'react-command-palette';
 import { Button, message } from 'antd';
+import {isMobile, osName } from 'react-device-detect';
 
 import asanaLogo from '../asana_logo.png';
 import sunsamaLogo from '../sunsama_logo.png';
 import '../styles/Commands.css';
 import AsanaTaskCreateForm from './forms/AsanaTaskCreate';
-import { createClient } from '../lib/asana';
+import TaskCreateForm from './forms/TaskCreate';
+import { useClient } from '../lib/asana';
 import { useCreateAsanaTask, useAsanaCredentials } from '../hooks/asana';
+import { useCreateTask } from '../hooks/tasks';
+import moment from 'moment';
 
 const theme = {
   container: 'atom-container',
@@ -42,22 +46,30 @@ const Command = (props: any) => {
 
 const Commands = () => {
   const [loading, setLoading] = useState(false)
+
+  const [credentials] = useAsanaCredentials();
   const [isAsanaTaskFormVisible, setIsAsanaTaskFormVisible] = useState(false);
   const [asanaFormRef, setAsanaFormRef] = useState()
-  const [credentials] = useAsanaCredentials();
-  const { createTask } = useCreateAsanaTask();
+  const { createTask: createAsanaTask } = useCreateAsanaTask();
+
+  const [isTaskFormVisible, setIsTaskFormVisible] = useState(false);
+  const [taskFormRef, setTaskFormRef] = useState()
+  const { createTask } = useCreateTask();
+  const client = useClient()
 
   const isAsanaAuthorized = !!credentials.access_token
   const commands = [{
     name: 'Create Task',
     icon: sunsamaLogo,
-    command: () => message.success('Creating a task is coming soon')
+    command: () => {
+      setIsTaskFormVisible(true)
+    }
   }, {
     name: isAsanaAuthorized ? 'Create Asana Task' : 'Connect to Asana',
     icon: asanaLogo,
     command: () => {
       if (!isAsanaAuthorized) {
-        window.location.replace(createClient().app.asanaAuthorizeUrl())
+        window.location.replace(client.app.asanaAuthorizeUrl())
       } else {
         setIsAsanaTaskFormVisible(true)
       }
@@ -80,13 +92,58 @@ const Commands = () => {
         return;
       }
 
-      await createTask({
+      await createAsanaTask({
         description: values.title
       })
       form.resetFields();
       setLoading(false)
       setIsAsanaTaskFormVisible(false)
     });
+  }
+
+  const handleTaskCreateCancel = () => {
+    const { form } = taskFormRef.props;
+    form.resetFields();
+    setIsTaskFormVisible(false)
+  }
+
+  const handleTaskCreate = async () => {
+    setLoading(true)
+    const { form } = taskFormRef.props;
+    form.validateFields(async (err: Error | null, task: any) => {
+      if (err) {
+        message.error(err.message)
+        setLoading(false)
+        return;
+      }
+
+      const newTask = {
+        created: moment(),
+        ...task,
+      }
+      if (task.time) {
+        newTask.time = moment.duration().add(task.time, task.timeUnit)
+      }
+      await createTask(newTask)
+      form.resetFields();
+      setLoading(false)
+      setIsTaskFormVisible(false)
+    });
+  }
+
+  let hotKeys = 'command+k'
+  let triggerText = '⌘+k (Commands)'
+  switch(osName) {
+    case 'Windows':
+      hotKeys = 'ctrl+k'
+      triggerText = 'ctrl+k (Commands)'
+      break;
+    default:
+      break;
+  }
+
+  if (isMobile) {
+    triggerText = 'Commands'
   }
 
   return (
@@ -98,15 +155,20 @@ const Commands = () => {
         onCreate={handleAsanaTaskCreate}
         loading={loading}
       />
+      <TaskCreateForm
+        wrappedComponentRef={setTaskFormRef}
+        visible={isTaskFormVisible}
+        onCancel={handleTaskCreateCancel}
+        onCreate={handleTaskCreate}
+        loading={loading}
+      />
       <CommandPalette
         theme={theme}
-        hotKeys='command+k'
+        hotKeys={hotKeys}
         closeOnSelect={true}
         resetInputOnClose={true}
         renderCommand={Command}
-        trigger={<Button>
-          ⌘+k (Command Palette)
-        </Button>}
+        trigger={<Button>{triggerText}</Button>}
         commands={commands}
       />
     </div>

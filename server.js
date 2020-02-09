@@ -48,6 +48,19 @@ app.use('/asana/callback', function(req, res) {
   }
 });
 
+app.use('/asana/refresh', function(req, res) {
+  var refresh_token = req.param('refresh_token');
+  if (refresh_token) {
+    var client = createClient(req);
+    client.app.accessTokenFromRefreshToken(refresh_token).then(function(credentials) {
+      res.send(credentials);
+    });
+  } else {
+    // Authorization could have failed. Show an error.
+    res.end('Error refreshing token: ' + req.param('error'));
+  }
+});
+
 app.use(express.static('build'))
 app.use('/auth/callback/asana', express.static('build/index.html'))
 

@@ -3,8 +3,9 @@ import createPersistedState from 'use-persisted-state';
 import { createStateContext, usePrevious } from 'react-use';
 import { ITask } from "../components/Task";
 import { map } from "lodash";
-import { createClient } from "../lib/asana";
+import { useClient } from "../lib/asana";
 import { useEffect, useState, useCallback } from "react";
+import moment from 'moment';
 
 export interface IUseAsanaTasksResult {
   loading: boolean
@@ -30,6 +31,8 @@ const mapTaskToAsanaTask = ({ description, complete }: ITask) => ({
 })
 
 const mapAsanaTaskToTask = ({ name, completed }: any): ITask => ({
+  date: moment(), // TODO get the date from the asana object
+  created: moment(),
   description: name,
   complete: completed
 })
@@ -38,6 +41,7 @@ export const useAsanaTasks = () => {
   const [credentials] = useAsanaCredentials();
   const prevCredentials = usePrevious(credentials);
   const [tasks, setTasks] = useTasks()
+  const client = useClient()
   const [state, setState] = useState<Omit<IUseAsanaTasksResult, 'tasks'>>({
     sync: async () => {
       const token = credentials.access_token
@@ -47,7 +51,6 @@ export const useAsanaTasks = () => {
           loading: true
         })
         try {
-          const client = createClient(token, credentials.refresh_token)
           const user = await client.users.me()
 
           const userId = user.gid;
@@ -99,6 +102,7 @@ export const useCreateAsanaTask = () => {
   const [state, setState] = useState<Omit<IUseCreateAsanaTaskResult, 'createTask' | 'tasks'>>({
     loading: false
   })
+  const client = useClient()
 
   const createTask = useCallback(async (task: Partial<ITask>) => {
     setState({
@@ -112,7 +116,6 @@ export const useCreateAsanaTask = () => {
         throw new Error('Oops Looks like you are not logged into Asana. Please try again')
       }
 
-      const client = createClient(token!)
       const me = await client.users.me()
       const workspace = me.workspaces[0]
 
@@ -137,7 +140,7 @@ export const useCreateAsanaTask = () => {
         error
       })
     }
-  }, [tasks, credentials.access_token, setTasks, state])
+  }, [tasks, credentials.access_token, setTasks, state, client])
 
   return {
     ...state,

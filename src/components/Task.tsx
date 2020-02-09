@@ -13,6 +13,8 @@ import { IconProps } from 'antd/lib/icon';
 import Channel, { IChannel } from './Channel';
 
 export interface ITask {
+  date: moment.Moment
+  created: moment.Moment
   description: string
   time?: moment.Duration
   channel?: IChannel
