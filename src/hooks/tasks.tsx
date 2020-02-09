@@ -55,10 +55,7 @@ export const useCreateTask = () => {
     setLoading(true)
     return new Promise((resolve) => {
       setTimeout(() => {
-        const newTasks = [{
-          ...task,
-          time: task.time && moment.duration((task.time as any as moment.Moment).format('HH:mm:ss'))
-        }, ...tasks]
+        const newTasks = [task, ...tasks]
         console.log(newTasks)
         setTasks(newTasks)
         setLoading(false)

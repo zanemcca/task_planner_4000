@@ -12,6 +12,7 @@ import { createClient } from '../lib/asana';
 import { useCreateAsanaTask, useAsanaCredentials } from '../hooks/asana';
 import { ITask } from './Task';
 import { useCreateTask } from '../hooks/tasks';
+import moment from 'moment';
 
 const theme = {
   container: 'atom-container',
@@ -108,7 +109,7 @@ const Commands = () => {
   const handleTaskCreate = async () => {
     setLoading(true)
     const { form } = taskFormRef.props;
-    form.validateFields(async (err: Error | null, task: ITask) => {
+    form.validateFields(async (err: Error | null, task: any) => {
       if (err) {
         message.error(err.message)
         setLoading(false)
@@ -116,7 +117,11 @@ const Commands = () => {
       }
 
       console.log(task)
-      await createTask(task)
+      const newTask = { ...task }
+      if (task.time) {
+        newTask.time = moment.duration().add(task.time, task.timeUnit)
+      }
+      await createTask(newTask)
       form.resetFields();
       setLoading(false)
       setIsTaskFormVisible(false)

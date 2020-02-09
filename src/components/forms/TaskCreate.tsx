@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Form, Modal, Input, DatePicker, TimePicker, Select, Col } from 'antd';
+import { Form, Modal, Input, DatePicker, TimePicker, Select, Col, InputNumber, Radio } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import { withModalWrapper, IModalFormProps, IWrappedModelFormProps } from './ModalFormWrapper';
 import moment from 'moment';
@@ -19,16 +19,23 @@ const RawTaskCreateForm = withModalWrapper({ title: 'Create a SunsamaTask' })((p
       })(<Input ref={(input) => props.inputRefHolder.ref = input } />)}
     </Form.Item>
     <Form.Item style={{ marginBottom: '0px' }}>
-      <Col span={12}>
+      <Col span={10}>
         <Form.Item label="Date">
           {props.form.getFieldDecorator('date', {
             initialValue: moment()
           })(<DatePicker />)}
         </Form.Item>
       </Col>
-      <Col span={12}>
+      <Col span={6}>
         <Form.Item label="Duration">
-          {props.form.getFieldDecorator('time')(<TimePicker defaultOpenValue={moment('00:00', 'HH:mm')} minuteStep={15} format={'HH:mm'} />)}
+          {props.form.getFieldDecorator('time')(<InputNumber />)}
+        </Form.Item>
+      </Col>
+      <Col span={8}>
+        <Form.Item style={{ marginTop: '29px' }}>
+          {props.form.getFieldDecorator('timeUnit', {
+            initialValue: 'minute'
+          })(<HoursOrMinutes />)}
         </Form.Item>
       </Col>
     </Form.Item>
@@ -37,6 +44,17 @@ const RawTaskCreateForm = withModalWrapper({ title: 'Create a SunsamaTask' })((p
     </Form.Item>
   </Form>
 ))
+
+export interface IHoursOrMinutesProps {
+  value?: 'hour' | 'minute'
+  onChange?: (e: any) => void
+}
+const HoursOrMinutes = (props: IHoursOrMinutesProps) => (
+  <Radio.Group value={props.value} onChange={props.onChange}>
+    <Radio.Button value="minute">Minutes</Radio.Button>
+    <Radio.Button value="hour">Hours</Radio.Button>
+  </Radio.Group>
+)
 
 const TaskCreateForm = Form.create<ITaskCreateProps>({ name: 'task_create_form' })(RawTaskCreateForm);
 
