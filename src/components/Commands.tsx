@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import CommandPalette from 'react-command-palette';
 import { Button, message } from 'antd';
+import {isMobile, osName } from 'react-device-detect';
 
 import asanaLogo from '../asana_logo.png';
 import sunsamaLogo from '../sunsama_logo.png';
@@ -126,6 +127,21 @@ const Commands = () => {
     });
   }
 
+  let hotKeys = 'command+k'
+  let triggerText = '⌘+k (Commands)'
+  switch(osName) {
+    case 'Windows':
+      hotKeys = 'ctrl+k'
+      triggerText = 'ctrl+k (Commands)'
+      break;
+    default:
+      break;
+  }
+
+  if (isMobile) {
+    triggerText = 'Commands'
+  }
+
   return (
     <div className="Commands-button-wrapper">
       <AsanaTaskCreateForm
@@ -144,13 +160,11 @@ const Commands = () => {
       />
       <CommandPalette
         theme={theme}
-        hotKeys='command+k'
+        hotKeys={hotKeys}
         closeOnSelect={true}
         resetInputOnClose={true}
         renderCommand={Command}
-        trigger={<Button>
-          ⌘+k (Command Palette)
-        </Button>}
+        trigger={<Button>{triggerText}</Button>}
         commands={commands}
       />
     </div>
