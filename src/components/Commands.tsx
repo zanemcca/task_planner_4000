@@ -9,7 +9,7 @@ import sunsamaLogo from '../sunsama_logo.png';
 import '../styles/Commands.css';
 import AsanaTaskCreateForm from './forms/AsanaTaskCreate';
 import TaskCreateForm from './forms/TaskCreate';
-import { createClient } from '../lib/asana';
+import { useClient } from '../lib/asana';
 import { useCreateAsanaTask, useAsanaCredentials } from '../hooks/asana';
 import { useCreateTask } from '../hooks/tasks';
 import moment from 'moment';
@@ -55,6 +55,7 @@ const Commands = () => {
   const [isTaskFormVisible, setIsTaskFormVisible] = useState(false);
   const [taskFormRef, setTaskFormRef] = useState()
   const { createTask } = useCreateTask();
+  const client = useClient()
 
   const isAsanaAuthorized = !!credentials.access_token
   const commands = [{
@@ -68,7 +69,7 @@ const Commands = () => {
     icon: asanaLogo,
     command: () => {
       if (!isAsanaAuthorized) {
-        window.location.replace(createClient().app.asanaAuthorizeUrl())
+        window.location.replace(client.app.asanaAuthorizeUrl())
       } else {
         setIsAsanaTaskFormVisible(true)
       }
