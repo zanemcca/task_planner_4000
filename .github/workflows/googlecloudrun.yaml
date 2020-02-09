@@ -11,7 +11,7 @@ env:
   RUN_REGION: us-central1
   SERVICE_NAME: task-planner
   ASANA_CLIENT_ID: ${{ secrets.ASANA_CLIENT_ID }}
-  ASANA_CLIENT_SECERT: ${{ secrets.ASANA_CLIENT_SECRET }}
+  ASANA_CLIENT_SECRET: ${{ secrets.ASANA_CLIENT_SECRET }}
 
   GCLOUD_EMAIL: ${{ secrets.GCLOUD_EMAIL }}
   GITHUB_SHA: ${{ github.sha }}
@@ -47,5 +47,5 @@ jobs:
             --region $RUN_REGION \
             --image gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA \
             --platform managed \
-            --set-env-vars='ASANA_CLIENT_ID=$ASANA_CLIENT_ID' \
-            --set-env-vars='ASANA_CLIENT_SECRET=$ASANA_CLIENT_SECRET'
+            --set-env-vars=ASANA_CLIENT_ID=$ASANA_CLIENT_ID \
+            --set-env-vars=ASANA_CLIENT_SECRET=$ASANA_CLIENT_SECRET
