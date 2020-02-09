@@ -9,7 +9,6 @@ import Schedule from './Schedule';
 import Asana from './Asana';
 import Commands from './Commands';
 import { RouteComponentProps } from '@reach/router';
-import { SiderProps } from 'antd/lib/layout';
 
 const { Sider, Content } = Layout
 
