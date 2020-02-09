@@ -14,7 +14,7 @@ const { Option } = Select
 
 class ChannelSelect extends React.Component<IChannelSelectProps> {
   channels = useChannels()
-  handleChange(title: keyof ReturnType<typeof useChannels>) {
+  private handleChange(title: keyof ReturnType<typeof useChannels>) {
     this.props.onChange && this.props.onChange(this.channels[title])
   }
 
@@ -22,7 +22,7 @@ class ChannelSelect extends React.Component<IChannelSelectProps> {
     return (
       <Select
         value={this.props.value && this.props.value.title as keyof ReturnType<typeof useChannels>}
-        style={{ width: 120 }} onChange={this.handleChange}
+        style={{ width: 120 }} onChange={this.handleChange.bind(this)}
       >
         {map(this.channels, (channel, key) => (
           <Option key={key} value={key}>
