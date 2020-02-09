@@ -4,6 +4,7 @@ import { ITask } from '../components/Task';
 import { createStateContext } from 'react-use';
 import { useState, useCallback } from 'react';
 import moment from 'moment';
+import { useChannels } from './channels';
 
 export interface IUseCreateTaskResult {
   loading: boolean
@@ -14,16 +15,7 @@ export interface IUseCreateTaskResult {
 
 const today = moment()
 
-const channels = {
-  default: {
-    title: 'default',
-    color: 'red'
-  },
-  personal: {
-    title: 'personal',
-    color: 'blue'
-  }
-}
+const channels = useChannels()
 
 export const [useTasks, TasksProvider] = createStateContext<ITask[]>([{
   date: today,
@@ -63,7 +55,10 @@ export const useCreateTask = () => {
     setLoading(true)
     return new Promise((resolve) => {
       setTimeout(() => {
-        const newTasks = [task, ...tasks]
+        const newTasks = [{
+          ...task,
+          time: task.time && moment.duration((task.time as any as moment.Moment).format('HH:mm:ss'))
+        }, ...tasks]
         console.log(newTasks)
         setTasks(newTasks)
         setLoading(false)
