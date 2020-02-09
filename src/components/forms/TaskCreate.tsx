@@ -15,19 +15,19 @@ const RawTaskCreateForm = withModalWrapper({ title: 'Create a SunsamaTask' })((p
       })(<Input ref={(input) => props.inputRefHolder.ref = input } />)}
     </Form.Item>
     <Form.Item style={{ marginBottom: '0px' }}>
-      <Col span={10}>
+      <Col md={10} span={24}>
         <Form.Item label="Date">
           {props.form.getFieldDecorator('date', {
             initialValue: moment()
           })(<DatePicker />)}
         </Form.Item>
       </Col>
-      <Col span={6}>
+      <Col md={6} span={12}>
         <Form.Item label="Duration">
           {props.form.getFieldDecorator('time')(<InputNumber />)}
         </Form.Item>
       </Col>
-      <Col span={8}>
+      <Col md={8} span={12}>
         <Form.Item style={{ marginTop: '29px' }}>
           {props.form.getFieldDecorator('timeUnit', {
             initialValue: 'minute'
